@@ -25,9 +25,8 @@ import com.github.searls.jasmine.model.JasmineResult;
  * @goal test
  * @phase test
  * @execute lifecycle="jasmine-lifecycle" phase="process-test-resources"
- */
+git://github.com/searls/jasmine-maven-plugin.git */
 public class TestMojo extends AbstractJasmineMojo {
-
 	public void run() throws Exception {
 		if(!skipTests) {
 			getLog().info("Executing Jasmine Specs");
@@ -55,9 +54,9 @@ public class TestMojo extends AbstractJasmineMojo {
 	private JasmineResult executeSpecs(File runnerFile) throws MalformedURLException {
 		WebDriver driver = createDriver();
 		JasmineResult result = new SpecRunnerExecutor().execute(
-			runnerFile.toURI().toURL(), 
-			new File(jasmineTargetDir,junitXmlReportFileName), 
-			driver, 
+			runnerFile.toURI().toURL(),
+			new File(jasmineTargetDir,junitXmlReportFileName),
+			driver,
 			timeout, debug, getLog(), format);
 		return result;
 	}
@@ -73,7 +72,7 @@ public class TestMojo extends AbstractJasmineMojo {
 				throw new RuntimeException("Couldn't instantiate webDriverClassName", e);
 			}
 		}
-		
+
 		// We have extra configuration to do to the HtmlUnitDriver
 		BrowserVersion htmlUnitBrowserVersion;
 		try {
@@ -84,9 +83,9 @@ public class TestMojo extends AbstractJasmineMojo {
 		HtmlUnitDriver driver = new HtmlUnitDriver(htmlUnitBrowserVersion) {
 			protected WebClient modifyWebClient(WebClient client) {
 				client.setAjaxController(new NicelyResynchronizingAjaxController());
-				
+
 				//Disables stuff like this "com.gargoylesoftware.htmlunit.IncorrectnessListenerImpl notify WARNING: Obsolete content type encountered: 'text/javascript'."
-				if (!debug) 
+				if (!debug)
 					client.setIncorrectnessListener(new IncorrectnessListener() {
 				        public void notify(String arg0, Object arg1) {}
 				});
@@ -98,7 +97,7 @@ public class TestMojo extends AbstractJasmineMojo {
 		return driver;
 	}
 
-	
+
 	private void logResults(JasmineResult result) {
 		JasmineResultLogger resultLogger = new JasmineResultLogger();
 		resultLogger.setLog(getLog());
@@ -110,6 +109,4 @@ public class TestMojo extends AbstractJasmineMojo {
 			throw new MojoFailureException("There were Jasmine spec failures.");
 		}
 	}
-
-
 }
