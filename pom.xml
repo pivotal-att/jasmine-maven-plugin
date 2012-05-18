@@ -40,12 +40,12 @@
     <distributionManagement>
         <snapshotRepository>
             <id>snapshots</id>
-            <name>att-ci.sf.pivotallabs.com-snapshots</name>
+            <name>plugins-snapshot</name>
             <url>http://att-ci:7001/artifactory/plugins-snapshot-local</url>
         </snapshotRepository>
         <repository>
             <id>central</id>
-            <name>att-ci.sf.pivotallabs.com-releases</name>
+            <name>plugins-release</name>
             <url>http://att-ci:7001/artifactory/plugins-release-local</url>
         </repository>
     </distributionManagement>
