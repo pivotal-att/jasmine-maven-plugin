@@ -13,9 +13,15 @@
 			document.body.appendChild(document.createTextNode("Warning: opening this HTML file directly from the file system is deprecated. You should instead try running `mvn jasmine:bdd` from the command line, and then visit `http://localhost:8234` in your browser. "))
 		}
 	
-		var executeJasmineSpecs = function(){
-			window.reporter = new jasmine.$reporter$(); jasmine.getEnv().addReporter(reporter);
-			jasmine.getEnv().execute();
+var executeJasmineSpecs = function(){
+    var env = jasmine.getEnv();
+        window.reporter = new jasmine.$reporter$(); env.addReporter(reporter);
+        if (window.reporter.specFilter) {
+            env.specFilter = function (spec) {
+                return window.reporter.specFilter(spec);
+            }
+        }
+			env.execute();
 		};
 	
 		if (window.addEventListener) {
